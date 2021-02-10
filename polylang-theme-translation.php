@@ -34,6 +34,11 @@ class Polylang_Theme_Translation
         'polylang-theme-translation'
     );
 
+    const EXCLUDE_DIRS = array(
+        'vendor',
+        'node_modules'
+    );
+
     /**
      * Constructor.
      */
@@ -118,8 +123,10 @@ class Polylang_Theme_Translation
                     $results[] = $path;
                 }
             } else if ($value != "." && $value != "..") {
-                $temp = $this->get_files_from_dir($path);
-                $results = array_merge($results, $temp);
+                if (!in_array($value, Polylang_Theme_Translation::EXCLUDE_DIRS)) {
+                    $temp = $this->get_files_from_dir($path);
+                    $results = array_merge($results, $temp);
+                }
             }
         }
         return $results;
