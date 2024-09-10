@@ -25,7 +25,7 @@ class Polylang_TT_importer
                             $original = $row[0];
                             $mo = new PLL_MO();
                             $mo->import_from_db($language);
-                            $translation = isset($row[$key + 2]) ? $row[$key + 2] : '';
+                            $translation = $row[$key + 2] ?? '';
                             if (!empty($translation)) {
                                 $translation = apply_filters('tt_pll_sanitize_string_translation', $translation, $original, $language->slug);
                                 $mo->add_entry($mo->make_entry($original, $translation));

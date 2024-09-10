@@ -35,35 +35,92 @@ switch ($data['msg']) {
         break;
 }
 ?>
-
+<code><?php _e('Powered by Theme and plugin translation for Polylang (TTfP)', 'polylang-tt'); ?></code>
 <h3>
     <?php _e('Settings', 'polylang-tt'); ?>
 </h3>
 
 <h4>
-    <?php _e('Select area to be scanned in Strigs translations tab', 'polylang-tt'); ?>:
+    <?php _e('Select area to be scanned in strings translations tab', 'polylang-tt'); ?>
+    :
 </h4>
 
-<div class="form-wrap">
+<div class="form-wrap" style="width: 100%;">
     <form id="settings" method="post" enctype="multipart/form-data"
+          style="display: inline-block;"
           action="<?php echo esc_url(add_query_arg('pll_action', 'settings')); ?>">
         <?php wp_nonce_field('settings', '_wpnonce_settings'); ?>
         <input type="hidden" name="action_settings" value="1">
-        <p>Themes:</p>
-        <?php foreach ($data['themes'] as $theme): ?>
+
+        <p><?php _e('Force translate admin dashboard:', 'polylang-tt'); ?></p>
+        <label>
+            <input type="radio" name="force_translate_admin"
+                   value="0"
+                   <?php if ($data['force_translate_admin'] == 0): ?>checked<?php endif; ?>>
+            <?php _e('None', 'polylang-tt'); ?>
+        </label>
+        <label>
+            <input type="radio" name="force_translate_admin"
+                   value="<?php print Polylang_Theme_Translation::VALUE_DEFAULT_POLYLANG_LANG; ?>"
+                   <?php if ($data['force_translate_admin'] == Polylang_Theme_Translation::VALUE_DEFAULT_POLYLANG_LANG): ?>checked<?php endif; ?>>
+            <?php _e('Translate admin dashboard to default polylang language', 'polylang-tt'); ?>
+            [<?php print pll_default_language(); ?>]
+        </label>
+        <label>
+            <input type="radio" name="force_translate_admin"
+                   value="<?php print Polylang_Theme_Translation::VALUE_SELECTED_SLUG_LANG; ?>"
+                   <?php if ($data['force_translate_admin'] == Polylang_Theme_Translation::VALUE_SELECTED_SLUG_LANG): ?>checked<?php endif; ?>>
+            <?php _e("Translate admin dashboard by language selector form the list: 'Show all languages' (slug)", 'polylang-tt'); ?>
+        </label>
+        <label>
+            <input type="radio" name="force_translate_admin"
+                   value="<?php print Polylang_Theme_Translation::VALUE_DEFAULT_USER_PROFILE_LANG; ?>"
+                   <?php if ($data['force_translate_admin'] == Polylang_Theme_Translation::VALUE_DEFAULT_USER_PROFILE_LANG): ?>checked<?php endif; ?>>
+            <?php _e('Translate admin dashboard by user preferences (user profile settings)', 'polylang-tt'); ?>
+        </label>
+
+        <br/>
+        <p><?php _e('Wordpress core and admin domains:', 'polylang-tt'); ?></p>
+        <?php foreach ($data['domains'] as $domain): ?>
             <label>
-                <input type="checkbox" name="themes[]" value="<?php print $theme; ?>"
-                       <?php if (in_array($theme, $data['settings']['themes'])): ?>checked<?php endif; ?>>
-                <?php print $theme; ?>
+                <input type="checkbox" name="domains[]"
+                       value="<?php print $domain; ?>"
+                       <?php if (in_array($domain, $data['settings']['domains'])): ?>checked<?php endif; ?>>
+                <?php print $domain; ?>
             </label>
         <?php endforeach; ?>
-        <p>Plugins:</p>
-
+        <br/>
+        <p><?php _e('Themes:', 'polylang-tt'); ?></p>
+        <?php foreach ($data['themes'] as $theme): ?>
+            <label>
+                <input type="checkbox" name="themes[]"
+                       value="<?php print $theme; ?>"
+                       <?php if (in_array($theme, $data['settings']['themes'])): ?>checked<?php endif; ?>>
+                <?php print $theme; ?>
+                <small>
+                    (
+                    <?php _e('Theme Name:', 'polylang-tt'); ?> <?php print pll_get_theme_fullname($theme); ?>
+                    ,
+                    <?php _e('Text Domain:', 'polylang-tt'); ?> <?php print pll_get_theme_textdomain($theme); ?>
+                    )
+                </small>
+            </label>
+        <?php endforeach; ?>
+        <br/>
+        <p><?php _e('Plugins:', 'polylang-tt'); ?></p>
         <?php foreach ($data['plugins'] as $plugin): ?>
             <label>
-                <input type="checkbox" name="plugins[]" value="<?php print $plugin; ?>"
+                <input type="checkbox" name="plugins[]"
+                       value="<?php print $plugin; ?>"
                        <?php if (in_array($plugin, $data['settings']['plugins'])): ?>checked<?php endif; ?>>
                 <?php print $plugin; ?>
+                <small>
+                    (
+                    <?php _e('Plugin Name:', 'polylang-tt'); ?> <?php print pll_get_plugin_fullname($plugin); ?>
+                    ,
+                    <?php _e('Text Domain:', 'polylang-tt'); ?> <?php print pll_get_plugin_textdomain($plugin); ?>
+                    )
+                </small>
             </label>
         <?php endforeach; ?>
 
@@ -98,12 +155,16 @@ switch ($data['msg']) {
         <li>pll__();</li>
     </ul>
     <p>
-        <?php _e('This functions are defined by Polylang plugin for printing', 'polylang-tt'); ?><br/>
+        <?php _e('This functions are defined by Polylang plugin for printing', 'polylang-tt'); ?>
+        <br/>
         <?php _e('Thanks "Theme and plugin translation for Polylang" you can find these strings to translate and add to Polylang register on very simple way.', 'polylang-tt'); ?>
         <br/>
-        <?php _e('Then you can translate these texts from the admin dashboard.', 'polylang-tt'); ?><br/>
-        <?php _e('The scan result can be seen on the tab with translations:', 'polylang-tt'); ?><br/>
-        <?php _e('`Settings -> Languages -> String translation`', 'polylang-tt'); ?><br/>
+        <?php _e('Then you can translate these texts from the admin dashboard.', 'polylang-tt'); ?>
+        <br/>
+        <?php _e('The scan result can be seen on the tab with translations:', 'polylang-tt'); ?>
+        <br/>
+        <?php _e('`Settings -> Languages -> String translation`', 'polylang-tt'); ?>
+        <br/>
         <?php _e('or', 'polylang-tt'); ?><br/>
         <?php _e('`Languages -> String translation`', 'polylang-tt'); ?><br/>
     </p>
@@ -111,7 +172,8 @@ switch ($data['msg']) {
 
 <div class="form-wrap">
     <p>
-        <?php _e('Export all texts for translate as CSV file', 'polylang-tt'); ?>:
+        <?php _e('Export all texts for translate as CSV file', 'polylang-tt'); ?>
+        :
     </p>
     <form id="import_export_strings" method="post"
           action="<?php echo esc_url(add_query_arg('pll_action', 'export_strings')); ?>">
@@ -124,6 +186,11 @@ switch ($data['msg']) {
 </div>
 
 
+<hr>
+
+<h3>
+    <?php _e('Export/import polylang translations', 'polylang-tt'); ?>
+</h3>
 <div class="form-wrap">
     <p>
         <?php _e('Import all translated texts', 'polylang-tt'); ?>:
@@ -135,7 +202,8 @@ switch ($data['msg']) {
         <label for="import_strings">
             <?php _e('Select CSV file:', 'polylang-tt'); ?>:
         </label>
-        <input type="file" name="import_strings" id="import_strings" accept=".csv" required>
+        <input type="file" name="import_strings" id="import_strings"
+               accept=".csv" required>
         <?php
         submit_button(__('Run importer', 'polylang-tt')); // Since WP 3.1
         ?>

@@ -39,7 +39,7 @@ class Polylang_TT_exporter
             $filename = "polylang-translations.csv";
             $fp = fopen('php://output', 'w');
 
-            header('Content-type: application/csv');
+            header('Content-Type: text/csv; charset=utf-8');
             header('Content-Disposition: attachment; filename=' . $filename);
             fputcsv($fp, $header);
 

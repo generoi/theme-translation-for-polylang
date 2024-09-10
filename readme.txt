@@ -1,10 +1,10 @@
 === Theme and plugin translation for Polylang (TTfP) ===
 Contributors: marcinkazmierski
-Tags: polylang, multilingual, translate, translation, language, languages, twig, multilanguage, international, localization, timber, theme
-Requires at least: 4.7
-Tested up to: 5.5.1
-Requires PHP: 5.6
-Stable tag: 3.2.4
+Tags: polylang, translate, translation, languages, multilanguage
+Requires at least: 5.7
+Tested up to: 6.6
+Requires PHP: 7.0
+Stable tag: 3.4.7
 License: GPL2
 
 Theme and plugin translation using Polylang for WordPress.
@@ -15,6 +15,13 @@ Extension for Polylang plugin.
 
 Extension for Polylang plugin (Polylang is an extension to make multilingual WordPress websites.).
 Plugin is needed to translate the WordPress themes and plugins by Polylang.
+
+= How to configure it? =
+
+Select themes and plugins to find texts for translation by Polylang.
+In admin dashboard:
+
+`Languages -> TTfP Settings`
 
 = How it is work? =
 
@@ -29,8 +36,17 @@ Plugin in searched skins or plugins chooses texts from Polylang functions, such 
 
 *    _e(string $text, string $domain = 'default');
 *    __(string $text, string $domain = 'default');
+*    _x(string $text, string $context, string $domain = 'default');
 *    pll_e(string $text);
 *    pll__(string $text);
+*    esc_html(string $text);
+*    esc_html_e(string $text, string $domain = 'default');
+*    esc_html__(string $text, string $domain = 'default');
+*    _n(string $single, string $plural, int $number, string $domain = 'default');
+*    esc_attr_e(string $text, string $domain = 'default');
+*    esc_attr__(string $text, string $domain = 'default');
+
+In your function.php, themes or plugins.
 
 For example:
 
@@ -46,16 +62,21 @@ On the timber context declare this functions like:
 
 
 See more on: `https://polylang.wordpress.com/documentation/documentation-for-developers/functions-reference/`
-This functions are defined by Polylang plugin for printing translations.
+These functions are defined by Polylang plugin for printing translations.
 Thanks "Theme and plugin translation for Polylang" you can find these strings to translate and add to Polylang register on very simple way.
 And then you can translate these texts from the admin dashboard.
 The scan result can be seen on the tab with translations:
+
 `Settings -> Languages -> String translation`
+
 or
+
 `Languages -> String translation`
+
 
 You don't need programs like poedit – you don't change files with extensions like: `.pot`, `.po`, `.mo`.
 "Theme and plugin translation for Polylang" is highly efficient because the scanner is worked only on admin dashboard in tab:
+In dashboard:
 
 `Settings -> Languages -> String translation`
 
@@ -66,15 +87,48 @@ or
 
 = Export and import string translation =
 
-`Languages -> Export/import translations`
+In dashboard:
+
+`Languages -> TTfP Settings`
+
+
+= Filter reference =
+
+`ttfp_domains`
+
+Allows plugins and themes (in functions.php) to modify list of text domains (unique identifier for retrieving translated strings).
+List of text domains is displayed on "TTfP Settings" page to select them for translation by polylang engine.
+
+Example:
+
+`add_filter('ttfp_domains', 'custom_ttfp_domains', 10, 1);
+function custom_ttfp_domains(array $domains):array
+ {
+     $domains[] = "my-custom-domain";
+     return $domains;
+ }`
+
+= Filter reference =
+
+`ttfp_translation_access`
+
+Returns whether the user has capability to view and edit translations provided by TTfP.
+
+Example:
+
+`add_filter('ttfp_translation_access', 'custom_ttfp_translation_access', 10, 1);
+function custom_ttfp_translation_access(bool $hasAccess):bool
+ {
+     return current_user_can('edit_posts');
+ }`
 
 == Installation ==
-This plugin requires installed and activated the Polylang plugin,
-This plugin requires PHP 5.0
+This plugin requires to be installed and activated the Polylang plugin,
+This plugin requires PHP 7.0
 
 1. Upload the "Theme and plugin translation for Polylang" folder to the `/wp-content/plugins/` directory on your web server.
 2. Activate the plugin through the Plugins menu in WordPress.
-3. Go to the `Settings -> Languages -> String translation` or `Languages -> String translation` and find your texts.
+3. In Dashboard go to the `Settings -> Languages -> String translation` or `Languages -> String translation` and find your texts.
 
 = Use =
 
@@ -132,15 +186,160 @@ Then you can use in twig templates polylang functions like this (in templates/ho
  {% endblock %}`
 
 
-
-
 == Screenshots ==
 
 1. Screen show "Polylang" strings translations with "Theme and plugin translation for Polylang".
 2. Export/import translations as CSV file with "Theme and plugin translation for Polylang".
-3. Settings - Select area to be scanned in Strigs translations polylang tab.
+3. Settings - Select area to be scanned in Strings translations polylang tab.
 
 == Changelog ==
+= 3.4.7 - 2024/09/01 =
+
+* Load current language for "Multilingual Contact Form 7 with Polylang" plugin in translate_cf7_messages.
+
+= 3.4.6 - 2024/08/07 =
+
+* Requires Plugins - by problems with the pro version of Polylang.
+
+= 3.4.5 - 2024/08/07 =
+
+* Requires Plugins - by problems with the pro version of Polylang.
+
+= 3.4.4 - 2024/08/07 =
+
+* Requires Plugins - allow pro version of polylang.
+
+= 3.4.3 - 2024/08/06 =
+
+* Added New Plugin Header -  Requires Plugins.
+
+= 3.4.2 - 2024/02/15 =
+
+* Fixed preg_match_all for pll_.
+* New option in settings: "Translate admin dashboard by user preferences (user profile settings)".
+
+= 3.4.1 - 2024/01/16 =
+
+* Fixed 'Call to undefined function get_plugins()'
+
+= 3.4.0 - 2023/08/03 =
+
+* Added apply_filters: ttfp_translation_access.
+* Fixed force translating the administrator's dashboard.
+* Switched to PHP 7.0.
+
+= 3.3.5 - 2023/04/24 =
+
+* Fixed text domains of plugins on setting page.
+* Fixed pll_admin_current_language filter for translate or no translate admin dashboard.
+
+= 3.3.4 - 2023/04/03 =
+
+* Check if function get_plugin_data exist before use.
+* Added pll_admin_current_language filter for translate or no translate admin dashboard.
+
+= 3.3.3 - 2023/01/26 =
+
+* Include text domain of plugins and themes.
+
+= 3.3.2 - 2022/12/27 =
+
+* Fixed notice in Polylang_Theme_Translation_Settings.
+
+= 3.3.1 - 2022/12/15 =
+
+* Added apply_filters: ttfp_domains.
+
+= 3.3.0 - 2022/12/15 =
+
+* Fixed performance in filters in admin.
+* Added temporary cache on polylang translations page (for 60s).
+* Added WordPress core and admin string scanner: default domain.
+* Loading translations on action: pll_language_defined
+
+= 3.2.23 - 2022/12/12 =
+
+* Fixed performance in filters in admin.
+
+= 3.2.22 - 2022/12/12 =
+
+* Fixed translators in filters.
+
+= 3.2.21 - 2022/12/12 =
+
+* Removed esc_html filter.
+
+= 3.2.20 - 2022/12/10 =
+
+* Fixed gettext filter for default domain.
+
+= 3.2.19 - 2022/11/17 =
+
+* Security fix.
+
+= 3.2.18 - 2022/11/17 =
+
+* Security fix.
+
+= 3.2.17 - 2022/11/08 =
+
+* Security fix.
+
+= 3.2.16 - 2022/11/04 =
+
+* Fixed gettext filter.
+
+= 3.2.15 - 2022/11/04 =
+
+* Fixed gettext filter.
+
+= 3.2.14 - 2022/11/03 =
+
+* Fixed gettext filter.
+
+= 3.2.13 - 2022/05/26 =
+
+* Updated plugin description.
+* Test with Polylang version 3.2.3 and WordPress 6.0.
+
+= 3.2.12 - 2021/06/15 =
+
+* Added esc_attr_e and esc_attr__ filter.
+
+= 3.2.11 - 2021/05/17 =
+
+* Added esc_html filter.
+* Test with WordPress 5.7.2 version and Polylang version 3.0.4.
+* Updated version.
+
+= 3.2.10 - 2021/05/10 =
+
+* Fixed gettext_with_context filter.
+
+= 3.2.9 - 2021/05/04 =
+
+* Updated scanner regex.
+
+= 3.2.8 - 2021/05/03 =
+
+* Updated scanner regex.
+* Updated readme.
+
+= 3.2.7 - 2021/05/03 =
+
+* Updated scanner regex: added esc_html__.
+
+= 3.2.6 - 2021/04/27 =
+
+* Updated scanner regex.
+* Test with Polylang version 3.0.4.
+* Updated version.
+
+= 3.2.5 - 2021/02/20 =
+
+* UTF-8 header in csv exporter.
+* Test with Polylang version 2.9.2.
+* Updated version.
 
 = 3.2.4 - 2020/09/13 =
 
@@ -169,7 +368,7 @@ Then you can use in twig templates polylang functions like this (in templates/ho
 
 = 3.2.0 - 2019/09/26 =
 
-* Added setting section in "Export/import translations" tab.
+* Added setting section in "TTfP Settings" tab.
 * Updated version.
 
 = 3.1.1 - 2019/09/20 =
@@ -250,5 +449,3 @@ Then you can use in twig templates polylang functions like this (in templates/ho
 = 1.1 - 2016/02/03 =
 
 * Fixed readme.txt
-
-

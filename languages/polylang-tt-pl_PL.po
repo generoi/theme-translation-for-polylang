@@ -2,17 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2019-09-26 18:11+0200\n"
-"PO-Revision-Date: 2019-09-26 18:12+0200\n"
+"PO-Revision-Date: 2024-02-15 19:53+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-Poedit-Basepath: ..\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -53,8 +52,8 @@ msgid "Settings"
 msgstr "Ustawienia"
 
 #: theme/admin-import-export-page.tpl.php:44
-msgid "Select area to be scanned in Strigs translations tab"
-msgstr "Wybierz obszar do skanowania w zakładce Strigs translations."
+msgid "Select area to be scanned in strings translations tab"
+msgstr "Wybierz obszar do skanowania w zakładce Tłumaczenia"
 
 #: theme/admin-import-export-page.tpl.php:71
 msgid "Save"
@@ -66,22 +65,19 @@ msgstr "Jak to działa?"
 
 #: theme/admin-import-export-page.tpl.php:83
 msgid ""
-"\"Theme and plugin translation for Polylang (TTfP)\" automatically searches "
-"all files of WordPress themes and plugins."
+"\"Theme and plugin translation for Polylang (TTfP)\" automatically searches all files of WordPress "
+"themes and plugins."
 msgstr ""
-"Wtyczka \"Theme and plugin translation for Polylang (TTfP)\" automatycznie "
-"przeszukuje wszystkie pliki pluginów i skórek wordpressa."
+"Wtyczka \"Theme and plugin translation for Polylang (TTfP)\" automatycznie przeszukuje wszystkie pliki "
+"pluginów i skórek wordpressa."
 
 #: theme/admin-import-export-page.tpl.php:84
 msgid "It chooses from this file only those files with extensions:"
 msgstr "Wybiera z tych plików tylko te, które mają rozszerzenie:"
 
 #: theme/admin-import-export-page.tpl.php:92
-msgid ""
-"Plugin in searched skins or plugins chooses texts from Polylang functions, "
-"such as:"
-msgstr ""
-"Wtyczka w wybranych plikach wyszukuje użytych funkcji Polylang, takich jak:"
+msgid "Plugin in searched skins or plugins chooses texts from Polylang functions, such as:"
+msgstr "Wtyczka w wybranych plikach wyszukuje użytych funkcji Polylang, takich jak:"
 
 #: theme/admin-import-export-page.tpl.php:101
 msgid "This functions are defined by Polylang plugin for printing"
@@ -89,16 +85,15 @@ msgstr "Te funkcje są zdefiniowane przez wtyczkę Polylang do wyświetlania"
 
 #: theme/admin-import-export-page.tpl.php:102
 msgid ""
-"Thanks \"Theme and plugin translation for Polylang\" you can find these "
-"strings to translate and add to Polylang register on very simple way."
+"Thanks \"Theme and plugin translation for Polylang\" you can find these strings to translate and add to "
+"Polylang register on very simple way."
 msgstr ""
-"Przy pomocy wtyczki \"Theme and plugin translation for Polylang\" możesz "
-"znaleźć teksty do tłumaczenia i dodać je automatycznie do rejestru Polylang."
+"Przy pomocy wtyczki \"Theme and plugin translation for Polylang\" możesz znaleźć teksty do tłumaczenia "
+"i dodać je automatycznie do rejestru Polylang."
 
 #: theme/admin-import-export-page.tpl.php:104
 msgid "Then you can translate these texts from the admin dashboard."
-msgstr ""
-"Następnie możesz przetłumaczyć te teksty z poziomu panelu administracyjnego."
+msgstr "Następnie możesz przetłumaczyć te teksty z poziomu panelu administracyjnego."
 
 #: theme/admin-import-export-page.tpl.php:105
 msgid "The scan result can be seen on the tab with translations:"
@@ -135,3 +130,42 @@ msgstr "Wybierz plik w formacie CSV:"
 #: theme/admin-import-export-page.tpl.php:140
 msgid "Run importer"
 msgstr "Importuj"
+
+msgid "Powered by Theme and plugin translation for Polylang (TTfP)"
+msgstr "Powered by Theme and plugin translation for Polylang (TTfP)"
+
+msgid "Themes:"
+msgstr "Skórki:"
+
+msgid "Plugins:"
+msgstr "Wtyczki:"
+
+msgid "Wordpress core and admin domains:"
+msgstr "Domeny z rdzenia WordPress:"
+
+msgid "TTfP Settings"
+msgstr "Ustawienia wtyczki TTfP"
+
+msgid "Export/import polylang translations"
+msgstr "Eksport i import tłumaczeń"
+
+msgid "Plugin Name:"
+msgstr "Nazwa wtyczki:"
+
+msgid "Text Domain:"
+msgstr "Domena tekstu:"
+
+msgid "Force translate admin dashboard:"
+msgstr "Wymuś tłumaczenie panelu administratora:"
+
+msgid "Translate admin dashboard to default polylang language"
+msgstr "Przetłumacz panel administracyjny na domyślny język polylang"
+
+msgid "Translate admin dashboard by language selector form the list: 'Show all languages' (slug)"
+msgstr "Przetłumacz panel administracyjny na wybrany język (na podstawie slug)"
+
+msgid "Translate admin dashboard by user preferences (user profile settings)"
+msgstr "Tłumaczenie panelu administratora według preferencji użytkownika (ustawienia profilu użytkownika)"
+
+msgid "None"
+msgstr "Brak"
