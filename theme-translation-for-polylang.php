@@ -96,6 +96,10 @@ class Polylang_Theme_Translation {
 		$plugins = wp_get_active_and_valid_plugins();
 		$data = [];
 
+		if (is_multisite()) {
+			$plugins = array_merge($plugins, wp_get_active_network_plugins());
+		}
+
 		$settings = Polylang_Theme_Translation_Settings::getInstance();
 
 		foreach ($plugins as $plugin) {

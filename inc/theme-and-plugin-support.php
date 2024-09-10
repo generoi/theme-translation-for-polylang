@@ -10,6 +10,10 @@ function pll_get_plugins() {
     $pluginsNames = [];
     $plugins = wp_get_active_and_valid_plugins();
 
+    if (is_multisite()) {
+        $plugins = array_merge($plugins, wp_get_active_network_plugins());
+    }
+
     foreach ($plugins as $plugin) {
         $pluginDir = dirname($plugin);
         $pluginName = pathinfo($plugin, PATHINFO_FILENAME);
